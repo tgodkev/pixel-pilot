@@ -1,0 +1,31 @@
+{
+  "name": "pixel-pilot",
+  "version": "0.0.1",
+  "description": "Free Open Source Batch Image Manipulation",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "pixel-pilot": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgodkev/pixel-pilot.git"
+  },
+  "keywords": [
+    "images",
+    "node"
+  ],
+  "author": "tgodkev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgodkev/pixel-pilot/issues"
+  },
+  "homepage": "https://github.com/tgodkev/pixel-pilot#readme",
+  "dependencies": {
+    "sharp": "^0.33.2",
+    "yargs": "^17.7.2"
+  }
+}
