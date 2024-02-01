@@ -29,13 +29,14 @@ yargs(hideBin(process.argv))
 		describe: 'convert the image to a different format',
 		type: 'string'
 	})
-	.check((argv) => {
-		if (argv.resize) {
+	.check((argv, options) => {
+		console.log('checking the options', argv)
+		if (argv.r || argv.q || argv.f) {
 			if (argv.resize.trim().toLowerCase().includes('x') !== true) {
 				throw new Error('resize format must be in the format of hxw')
 			}
 			console.log('resizing images...')
-			console.log(argv.resize.trim().includes('x'))
+		
 			let dimensions = argv.resize.toLowerCase().split('x')
 			// function to resize image
 
