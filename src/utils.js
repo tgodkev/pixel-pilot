@@ -25,16 +25,27 @@ export async function processImages(options) {
 
 async function processImage(imagePath, options) {
   console.log("Processing image:", imagePath);
+  console.log("Options:", options);
 
   const outputFilename = path.join(
     path.dirname(imagePath),
-    path.basename(imagePath, path.extname(imagePath)) + '.png'
+    path.basename(imagePath, path.extname(imagePath)) + `.${options.f}`
   );
 
-  if (options.f) {
-    await sharp(imagePath)
-      .toFormat('png')
-      .toFile(outputFilename);
+  // TODO rework if checks, would like to dynamically add options
+  if (options.f && options.r && options.q) {
+    let splitDimensions = options.r.split('x');
+    let dimensions = splitDimensions.map(Number)
+    console.log("Dimensions:", dimensions);
+    sharp(imagePath)
+      .resize(dimensions[0], dimensions[1])
+      .toFormat(options.f, {
+        quality: options.q
+      })
+      .toFile(outputFilename)
+      .then(() => console.log('Image processing complete.'))
+      .catch(err => console.error('Error processing image:', err));
+
     console.log("Output file:", outputFilename);
   }
 }

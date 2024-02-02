@@ -27,7 +27,7 @@ yargs(hideBin(process.argv))
     describe: 'convert the image to a different format',
     type: 'string'
   })
-  .check((argv, options) => {
+  .check((argv) => {
     if (argv.r || argv.q || argv.f) {
       if (argv.resize.trim().toLowerCase().includes('x') !== true) {
         throw new Error('resize format must be in the format of hxw')
