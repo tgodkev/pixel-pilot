@@ -1,6 +1,6 @@
 {
   "name": "pixel-pilot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Free Open Source Batch Image Manipulation",
   "main": "index.js",
   "type": "module",

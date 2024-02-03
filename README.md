@@ -12,7 +12,6 @@ Pixel Pilot is an open-source CLI tool designed for efficient batch image manipu
 
 ## Installation
   Pixel Pilot is available as an npm package. You can install it globally on your system using npm with the following command:
-
   npm install -g pixel-pilot
 
 
