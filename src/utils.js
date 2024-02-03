@@ -11,7 +11,7 @@ export async function processImages(options) {
     if (err) {
       return console.error(err);
     }
-    console.log('Directory created successfully.');
+
   });
 
   let images = files.filter(file => {
@@ -28,11 +28,23 @@ export async function processImages(options) {
   }
 }
 
+
+
 async function processImage(imagePath, options) {
+
+  const subDir = "edited";
+
+  const outputDir = path.join(path.dirname(imagePath), subDir);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+
   const outputFilename = path.join(
-    path.dirname(imagePath),
+    outputDir,
     path.basename(imagePath, path.extname(imagePath)) + `.${options.f}`
   );
+
 
 
   try {
@@ -40,7 +52,7 @@ async function processImage(imagePath, options) {
 
     if (options.r) {
       const dimensions = options.r.split('x').map(Number);
-      pipeline = pipeline.resize(dimensions[0], dimensions[1]);
+      pipeline = pipeline.resize(...dimensions);
     }
 
     if (options.f) {
@@ -48,18 +60,13 @@ async function processImage(imagePath, options) {
         quality: options.q || 100
       });
     } else if (options.q) {
+      // Default format to JPEG if format isn't specified but quality is
       pipeline = pipeline.jpeg({ quality: options.q });
     }
 
-
-    pipeline.toFile(outputFilename)
-      .then(() => console.log('Image processing complete.'))
-      .catch(err => console.error('Error processing image:', err));
+    await pipeline.toFile(outputFilename);
+    console.log('Image processing complete.');
   } catch (error) {
-    console.log('Error initializing image processing:', error);
+    console.error('Error processing image:', error);
   }
-
-
-
-
 }
