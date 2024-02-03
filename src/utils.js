@@ -7,6 +7,12 @@ export async function processImages(options) {
   const directory = process.cwd();
   let files = fs.readdirSync(directory);
 
+  fs.mkdir(`${directory}/edited`, { recursive: true }, (err) => {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Directory created successfully.');
+  });
 
   let images = files.filter(file => {
     return ['.png', '.jpg', '.webp'].includes(path.extname(file).toLowerCase());
@@ -18,34 +24,42 @@ export async function processImages(options) {
   }
 
   for (let image of images) {
-
     await processImage(path.join(directory, image), options);
   }
 }
 
 async function processImage(imagePath, options) {
-  console.log("Processing image:", imagePath);
-  console.log("Options:", options);
-
   const outputFilename = path.join(
     path.dirname(imagePath),
     path.basename(imagePath, path.extname(imagePath)) + `.${options.f}`
   );
 
-  // TODO rework if checks, would like to dynamically add options
-  if (options.f && options.r && options.q) {
-    let splitDimensions = options.r.split('x');
-    let dimensions = splitDimensions.map(Number)
-    console.log("Dimensions:", dimensions);
-    sharp(imagePath)
-      .resize(dimensions[0], dimensions[1])
-      .toFormat(options.f, {
-        quality: options.q
-      })
-      .toFile(outputFilename)
+
+  try {
+    let pipeline = sharp(imagePath);
+
+    if (options.r) {
+      const dimensions = options.r.split('x').map(Number);
+      pipeline = pipeline.resize(dimensions[0], dimensions[1]);
+    }
+
+    if (options.f) {
+      pipeline = pipeline.toFormat(options.f, {
+        quality: options.q || 100
+      });
+    } else if (options.q) {
+      pipeline = pipeline.jpeg({ quality: options.q });
+    }
+
+
+    pipeline.toFile(outputFilename)
       .then(() => console.log('Image processing complete.'))
       .catch(err => console.error('Error processing image:', err));
-
-    console.log("Output file:", outputFilename);
+  } catch (error) {
+    console.log('Error initializing image processing:', error);
   }
+
+
+
+
 }
