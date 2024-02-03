@@ -28,7 +28,7 @@ Ensure pixel-pilot is executable:
 
 chmod +x ./path/to/pixel-pilot
 
-Usage
+## Usage
 
 To use Pixel Pilot, navigate to the directory containing your images and run:
 
@@ -50,13 +50,13 @@ To resize all images in the current directory to 400x400 pixels, convert them to
 pixel-pilot batch --r "400x400" --q 85 --f "webp"
 
 
-Warning
+## Warning
 This tool will create a copy of every image in the directory used. Ensure you have sufficient storage space and are operating on a copy of your original images to prevent accidental data loss.
 
-Contributing
+## Contributing
 Contributions to Pixel Pilot are welcome! Whether it's reporting a bug, discussing improvements, or contributing code, we value your input.
 
-See CONTRIBUTING.md for more details on how to contribute.
 
-License
+
+##License
 Pixel Pilot is released under the MIT License. Feel free to use, modify, and distribute it as per the license terms.
