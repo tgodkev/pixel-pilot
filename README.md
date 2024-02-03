@@ -30,8 +30,11 @@ Options
 All options are optional, but at least one must be specified:
 
 --r "<width>x<height>": Resize images to the specified dimensions (in pixels).
+
 --f "<format>": Convert images to the specified format (png, jpg, or webp).
+
 --q <quality>: Set the quality of the output images (1-100).
+
 Example
 To resize all images in the current directory to 400x400 pixels, convert them to WebP format, and set the quality to 85:
 
