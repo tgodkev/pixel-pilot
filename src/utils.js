@@ -15,7 +15,7 @@ export async function processImages(options) {
   });
 
   let images = files.filter(file => {
-    return ['.png', '.jpg', '.webp'].includes(path.extname(file).toLowerCase());
+    return ['.png', '.jpg', '.webp', 'jpeg'].includes(path.extname(file).toLowerCase());
   });
 
   if (images.length === 0) {
